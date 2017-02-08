@@ -1,0 +1,65 @@
+#define trigger 7  //PİN GİRİŞLERİ TANIMLANDI.
+#define echo 6
+#define kled 2
+#define sled 3
+#define yled 4
+#define mled 5
+
+float sure;       
+float mesafe;
+
+void setup() {
+  pinMode(trigger, OUTPUT); 
+  pinMode(echo, INPUT);
+  pinMode(kled, OUTPUT);
+  pinMode(sled, OUTPUT);
+  pinMode(yled, OUTPUT);
+  pinMode(mled, OUTPUT);
+
+  Serial.begin(9600);
+
+}
+
+void loop() {
+  digitalWrite(trigger, HIGH);
+  delay(1);
+  digitalWrite(trigger, LOW);
+
+  sure = pulseIn(echo, HIGH);
+  mesafe = (sure / 2) / 29.1;
+
+  
+
+  if(mesafe<=5)
+  {
+    digitalWrite(kled,HIGH);
+    digitalWrite(sled,LOW);
+    digitalWrite(yled,LOW);
+    digitalWrite(mled,LOW);
+  }
+else if(mesafe>5 && mesafe<=10)
+  {
+    digitalWrite(kled,LOW);
+    digitalWrite(sled,HIGH);
+    digitalWrite(yled,LOW);
+    digitalWrite(mled,LOW);
+  }
+else if(mesafe>10 && mesafe<=15)
+  {
+    digitalWrite(kled,LOW);
+    digitalWrite(sled,LOW);
+    digitalWrite(yled,HIGH);
+    digitalWrite(mled,LOW);
+  }
+  else if(mesafe>15 )
+  {
+    digitalWrite(kled,LOW);
+    digitalWrite(sled,LOW);
+    digitalWrite(yled,LOW);
+    digitalWrite(mled,HIGH);
+  }
+Serial.print("MESAFE:");
+  Serial.println(mesafe);
+  Serial.println("*****************************");
+  delay(500);
+}
